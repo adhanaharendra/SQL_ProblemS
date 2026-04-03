@@ -7,6 +7,12 @@
 where sales_id NOT IN (...)
 
 
+--   ⚠️ 3. The BIG Trap (Very Important)
+-- ❌ NOT IN fails with NULLs
+-- If subquery returns even one NULL, then:
+-- where sales_id NOT IN (...) becomes UNKNOWN for all rows → returns empty result
+
+
   select name
 from salesperson
 where sales_id NOT IN (
@@ -16,7 +22,7 @@ where sales_id NOT IN (
     on o.com_id = c.com_id
     where c.name = 'RED'
 );
-  
+
 -- ✔ NOT EXISTS (best practice)
 where NOT EXISTS (...)
 
